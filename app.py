@@ -171,7 +171,7 @@ def raw_process(dic):
     print('processing raw data ... ')
     data['signal_raw'] = np.stack(data['selected_channel_list'])
     data['signal_raw'] = data['signal_raw'][:,::data['resampling_rate']] 
-    # TODO: add highpass back
+    # TODO: uncomment this if using raw data!
     #data['signal_raw'] = highpass_filter(data['signal_raw'],data['sampling_freq'],data['lcf'],data['hcf'],data['filter_size'])
     # optim_order(data['signal_raw'])
     num_samples = len(data['signal_raw'][0])
@@ -413,7 +413,7 @@ def realtime(msg):
             chunk = np.array(data['buffer']).T
             del data['buffer'][:data['counter']]
             data['counter'] = 0
-            # TODO: add highpass back
+            # TODO: uncomment this if using raw data
             #chunk = highpass_filter(chunk,data['sampling_freq'],data['lcf'],data['hcf'],data['filter_size'])
             chunk = chunk-np.mean(chunk,axis=0).reshape(1,depth)
             chunk = chunk - np.mean(chunk, axis=1).reshape(32,1)
